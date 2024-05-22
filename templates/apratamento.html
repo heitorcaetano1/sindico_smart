@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Apartamentos{% endblock %}
+
+
+    {% block content %}
+        <h2>Apartamento {{ apartamento.numero }}</h2>
+        <p><strong>Bloco:</strong>  {{ apartamento.bloco }}</p>
+        <p><strong>Proprietário:</strong>
+            <a href="{% url 'proprietario:detalhe_proprietario' %}">
+                {{ apartamento.proprietario }}
+            </a></p>
+        <p><strong>Morador</strong>
+            <a href="{% url 'moradores:detalhe_morador' %}"> {{ apartamento.morador }}</a></p>
+    {% endblock %}

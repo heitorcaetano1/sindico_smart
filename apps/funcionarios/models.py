@@ -1,14 +1,21 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from apps.departamentos.models import Departamentos
 from apps.condominios.models import Condominios
+from django.contrib.auth.models import Group
+from django.contrib.auth.models import Permission
 
 
-class Funcionarios(models.Model):
+class Funcionarios(AbstractUser):
     nome = models.CharField(max_length=100, help_text='Nome funcionário')
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    departamento = models.ManyToManyField(Departamentos)
+    cargo = models.ManyToManyField(Departamentos, related_name="funcionarios_cargo")
     condominio = models.ForeignKey(Condominios, on_delete=models.PROTECT)
+    foto_usuario = models.ImageField(upload_to='fotos_usuario/', null=True, blank=True)
+    groups = models.ManyToManyField(Group, related_name="funcionarios_groups")
+    user_permissions = models.ManyToManyField(Permission, related_name="funcionarios_user_permissions")
+
+    def is_administracao_or_contabilidade(self):
+        return self.cargo.filter(nome__in=['Adminstração', 'Contabilidade']).exists()
 
     def __str__(self):
         return self.nome

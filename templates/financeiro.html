@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro Financeiro{% endblock %}
+
+{% block content %}
+    <h1>Gestão Financeira</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ conta_form.as_p }}
+    {{ fluxo_form.as_p }}
+    <button type="submit">Salvar</button>
+</form>
+{% endblock %}

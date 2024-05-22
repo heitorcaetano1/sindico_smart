@@ -11,4 +11,4 @@ class Apartamentos(models.Model):
     morador = models.ForeignKey(Inquilinos, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.numero
+        return self.numero, self.bloco

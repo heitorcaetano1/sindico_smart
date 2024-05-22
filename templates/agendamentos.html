@@ -1,0 +1,35 @@
+{% extends base.html %}
+
+{% block title %}Agendamento{% endblock %}
+
+{% block content %}
+    <h2>Horários Agendados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Período</th>
+                <th>Tipo de agendamento</th>
+                <th>Inquilino</th>
+                <th>Bloco</th>
+                <th>Apartamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for agendamento in agendamentos %}
+                <tr>
+                    <td>{{ agendamento.dia }}</td>
+                    <td>{{ agendamento.hora }}</td>
+                    <td>{{ agendamento.periodo }}</td>
+                    <td>{{ agendamento.categoria }}</td>
+                    <td>{{ agendamento.inquilino }}</td>
+                    <td>{{ agendamento.bloco }}</td>
+                    <td>{{ agendamento.apartamento }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button><a href="agendar">Agendar</a></button>
+
+{% endblock %}

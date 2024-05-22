@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Enviar Boleto{% endblock %}
+
+{% block content %}
+    <h1>Enviar Boleto</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="email" name="email_destinatario" placeholder="E-mail do Destinatário">
+        <button type="submit" name="enviar_email">
+            Enviar por E-mail
+        </button>
+
+        <button type="submit" name="enviar_whatsapp">
+            Enviar por Whatsapp
+        </button>
+    </form>
+{% endblock %}

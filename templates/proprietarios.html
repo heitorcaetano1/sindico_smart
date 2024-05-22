@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Proprietarios{% endblock %}
+
+{% block content %}
+    <h1>Proprietários</h1>
+    <div class="container-fluid">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Bloco</th>
+                    <th>Apartamento</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proprietario in proprietarios %}
+                    <tr>
+                        <td><a href="{% url 'proprietario' proprietario.id %}">{{ proprietario.nome }}</a></td>
+                        <td>{{ proprietario.bloco }}</td>
+                        <td>{{ proprietario.apartamento }}</td>
+                        <td>{{ proprietario.email }}</td>
+                        <td>{{ proprietario.tel_cont1 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

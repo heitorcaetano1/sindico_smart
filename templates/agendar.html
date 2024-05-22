@@ -1,0 +1,20 @@
+{% extends base.html %}
+
+{% block title %}Agendamento{% endblock %}
+
+{% block content %}
+    <h1>Agendar Horário</h1>
+    <div class="container mt-5 d-flex justify-content-center">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+                    </form>
+                </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Agendar</button>
+    </form>
+    <button><a href="agendamentos/">Agendamentos</a></button>
+
+{% endblock %}

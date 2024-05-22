@@ -2,4 +2,8 @@ from django.contrib import admin
 from .models import Condominios
 
 
-admin.site.register(Condominios)
+class CondominioAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'logo')
+
+
+admin.site.register(Condominios, CondominioAdmin)

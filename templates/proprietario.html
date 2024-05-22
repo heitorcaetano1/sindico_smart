@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Proprietário{% endblock %}
+
+{% block content %}
+    <h1>{{ proprietario.nome }}</h1>
+    <div class="container-fluid">
+        <p>Bloco: <strong></strong> {{ proprietario.bloco }}</p>
+        <p>Apartamento: <strong></strong> {{ proprietario.apartamento }}</p>
+        <p><strong>Identidade: </strong> {{ proprietario.identidade }}</p>
+        <p><strong>Data de Nascimento: </strong> {{ proprietario.nascimento }}</p>
+        <p><strong>Nacionalidade: </strong> {{ proprietario.nacionalidade }}</p>
+        <p><strong>Profissão: </strong> {{ proprietario.proficao }}</p>
+        <p><strong>Telefone de Contato: </strong> ({{ proprietario.ddd }}) {{ proprietario.tel_cont1 }}</p>
+        <p><strong>Telefone para Recado</strong> ({{ proprietario.ddd }}) {{ proprietario.contato2 }}</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Apartamentos{% endblock %}
+
+    {% block content %}
+        <h2>Apartamentos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Bloco</th>
+                    <th>Proprietário</th>
+                    <th>Morador</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for apartamento in apartamentos %}
+                    <tr>
+                        <td><a href="">{{ apartamento.numero }}</a></td>
+                        <td>{{ apartamento.bloco }}</td>
+                        <td>{{ apartamento.proprietario }}</td>
+                        <td>{{ apartamento.morador }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}

@@ -1,22 +1,13 @@
-"""
-URL configuration for sindico_smart project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
+    path('agendamentos/', include('apps.agendamentos.urls')),
+    path('apartamentos/', include('apps.apartamentos.urls')),
+    path('moradores/', include('apps.inquilino.urls')),
+    path('proprietarios/', include('apps.proprietario.urls')),
+    path('financeiro/', include('apps.financeiro.urls')),
+    path('', include('apps.core.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
