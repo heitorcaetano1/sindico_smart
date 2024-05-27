@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Moradores{% endblock %}
+{% block content %}
+    
+    <div>
+        <div>
+            <h1>Inquilinos</h1>
+        </div>
+        <div>
+             <table class="table-info col-12 p-5">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Bloco</th>
+                        <th>Apartamento</th>
+                        <th>Contato</th>
+                        <th>E-Mail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inquilino in inquilinos %}
+                        <tr>
+                            <td>{{ inquilino.nome }}</td>
+                            <td>{{ inquilino.bloco }}</td>
+                            <td><a href="">{{ inquilino.apartamento }}</a></td>
+                            <td>{{ apartamento.tel_cont1 }}</td>
+                            <td>{{ inquilino.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button class="btn btn-primary"><a href="{% url  %}">Cadastrar Moradores</a></button>
+        </div>
+    </div>
+{% endblock %}

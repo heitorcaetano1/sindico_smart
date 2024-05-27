@@ -1,35 +1,50 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block title %}Agendamento{% endblock %}
 
 {% block content %}
-    <h2>Horários Agendados</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Hora</th>
-                <th>Período</th>
-                <th>Tipo de agendamento</th>
-                <th>Inquilino</th>
-                <th>Bloco</th>
-                <th>Apartamento</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for agendamento in agendamentos %}
-                <tr>
-                    <td>{{ agendamento.dia }}</td>
-                    <td>{{ agendamento.hora }}</td>
-                    <td>{{ agendamento.periodo }}</td>
-                    <td>{{ agendamento.categoria }}</td>
-                    <td>{{ agendamento.inquilino }}</td>
-                    <td>{{ agendamento.bloco }}</td>
-                    <td>{{ agendamento.apartamento }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <button><a href="agendar">Agendar</a></button>
-
+    <div class="container-fluid">
+        <div class="container mt-5 d-flex justify-content-center">
+            <h2>Horários Agendados</h2>
+        </div>    
+    
+        <div class="container mt-5 d-flex justify-content-center">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" style="background: green; color: #f0f0f0">Pesquisar</button>
+            </form>
+        </div>
+    
+        <div class="container mt-5 d-flex justify-content-center">
+            <table class="table table-info">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Período</th>
+                        <th>Tipo de agendamento</th>
+                        <th>Inquilino</th>
+                        <th>Bloco</th>
+                        <th>Apartamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for agendamento in agendamentos %}
+                        <tr>
+                            <td>{{ agendamento.dia }}</td>
+                            <td>{{ agendamento.hora }}</td>
+                            <td>{{ agendamento.periodo }}</td>
+                            <td>{{ agendamento.categoria }}</td>
+                            <td>{{ agendamento.inquilino }}</td>
+                            <td>{{ agendamento.bloco }}</td>
+                            <td>{{ agendamento.apartamento }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="p-xxl-5 row-md-3">
+            <button class="btn btn-primary"><a href="{% url 'agendar/criar' %}"  style="color: #f0f0f0">Agendar</a></button>
+        </div>
+    </div>
 {% endblock %}

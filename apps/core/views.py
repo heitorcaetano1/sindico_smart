@@ -4,6 +4,6 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def index(request):
+def home(request):
     template = loader.get_template("index.html")
     return HttpResponse(template.render())

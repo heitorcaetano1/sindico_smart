@@ -17,11 +17,11 @@
         .logo-area {
             background-color: #007bff; /* Azul */
         }
-
+        
         .logo-area img {
             max-width: 400px;
             padding: 100%;/* Ajuste o tamanho máximo da logo conforme necessário */
-            margin-top: 0px; /* Ajuste o espaçamento conforme necessário */
+            margin-top: 0; /* Ajuste o espaçamento conforme necessário */
         }
     </style>
 </head>
@@ -38,30 +38,7 @@
                     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="fas fa-angle-right"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-                      <ul class="navbar-nav">
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Cadastrar<span>(current)</span></a>
-                        </li>
-                        <li class="nav-item dr">
-                              <a class="nav-link dropdown-toggle" href="#" 
-                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Cadastrar
-                              </a>
-                                <div>
-                                    <a href="moradores/">Cadastro de Morador</a>
-                                    <a href="apartamentos/">Apartamentos</a>
-                                    <a href="agendamentos/">Agendamentos</a>
-                                </div>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Apartamentos</a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="#">Agenda</a>
-                        </li>
-                      </ul>
-                    </div>
+                    
                   </div>
                 </nav>
             </div>
@@ -74,26 +51,48 @@
         </div>
         <div class="offcanvas-body bg-primary">
             <div class="user-profile text-center mb-4">
-                <img src="{{ funcionario.foto_funcionario }}" alt="Foto do Usuário" class="rounded-circle mb-4" style="width: 150px;">
-                <p class="text-white">{{ funcionario.nome }}</p>
+                <img src="{{ user.funcionarios.imagem_funcionario.url }}" alt="Foto do Usuário" class="rounded-circle mb-4" style="width: 150px; color: #b6d4fe">
+                <p class="text-white">{{ user.funcionario.nome }}</p>
             </div>
-            <ul class="nav flex-column mb-4">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Link 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Link 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Link 3</a>
-                </li>
-                <!-- Adicione mais links de acordo com sua necessidade -->
-            </ul>
+            <div class="col-12 px-5 pb-md-5 align-content-center">
+                <ul class="nav flex-column mb-4">
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="nav-link text-white">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Agenda</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'inquilino-list' %}">Moradores</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Proprietários</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Apartamentos</a>
+                    </li>
+                
+                    <li class="nav-item">
+                          {% if usuario.funcionario.condominio %}
+                              <a href="{% url 'editar_condominio' usuario.funcionario.condominio.id %}" class="nav-link text-white">Editar Condominio</a>
+                          {% else %}
+                             <a href="{% url 'criar_condominio' %}" class="nav-link text-white">Criar Condominio</a>
+                          {% endif %}
+                    </li>
+                    <li class="nav-item">
+                         <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
+                    </li>
+                    <!-- Adicione mais links de acordo com sua necessidade -->
+                </ul>
+            </div>
         </div>
     </div>
-    <section class="conteudo">
-        <div class="container-fluid">
-            <div class="container mt-5 d-flex justify-content-center" style="border: 3px solid  red;">
+    <section class="container-fluid">
+        <div class="row">
+            <div class="row-cols-auto mt-5 d-flex justify-content-center">
                 
                 {% block content %}
                     

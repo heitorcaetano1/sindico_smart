@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import detalhes_morador, lista_morador
-
+from .views import InquilinoListView, InquilinoDetailView, DetalhesMoredorView
 
 urlpatterns = [
-    path('morador/busca/<str:nome_inquilino>/',
-         detalhes_morador, name='detalhes_morador'),
-    path('moradores/', lista_morador, name='lista_inquilinos'),
+    path('inquilinos/', InquilinoListView.as_view(), name='inquilino-list'),
+    path('inquilinos/<int:pk>/', InquilinoDetailView.as_view(), name='inquilino-detail'),
+    path('inquilinos/detalhes/<str:nome_inquilino>/', DetalhesMoredorView.as_view(), name='detalhes-morador'),
 ]

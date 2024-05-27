@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Criar Condominios{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}

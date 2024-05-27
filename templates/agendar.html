@@ -1,20 +1,24 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block title %}Agendamento{% endblock %}
 
 {% block content %}
-    <h1>Agendar Horário</h1>
-    <div class="container mt-5 d-flex justify-content-center">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-                    </form>
-                </div>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Agendar</button>
-    </form>
-    <button><a href="agendamentos/">Agendamentos</a></button>
-
+    <div class="contents">
+        <div class="offset-md-3 row-cols-12">
+            <h3>Agendar Horário</h3>
+        </div>
+        <div class="changelist-form-container">
+            <div class="container rounded shadow border-secondary mx-lg-4">
+                <form method="post" class="offset-md-3 row-cols-md-3">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </form>
+            </div>
+             <div class="offset-md-8 row-cols-12">
+                <button type="submit" class="btn btn-primary">Agendar</button>
+            
+                <button class="btn btn-danger"><a href="{% url 'agendamentos/lista' %}"  style="color: #f0f0f0">Voltar</a></button>
+             </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Condominios(models.Model):
@@ -7,3 +8,6 @@ class Condominios(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def get_absolute_url(self):
+        return reverse('index.html')

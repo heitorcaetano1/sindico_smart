@@ -3,6 +3,23 @@
 {% block title %}Smart Sindico{% endblock %}
 
 {% block content %}
+    <div class="row">
+        <div class="col-sm">
+            
+        </div>
+        <div class="col-sm">
+            Bem Vindo {{ usuario.funcionario.nome }}
+        </div>
+        <div class="col-sm">
+            <a href="{% url 'logout' %}">Logout</a>
+            
+                {% if usuario.funcionario.condominio %}
+                    <a href="{% url 'editar_condominio' usuario.funcionario.condominio.id %}">Editar Condominio</a>
+                {% else %}
+                    <a href="{% url 'criar_condominio' %}">Criar Condominio</a>
+                {% endif %}
+        </div>
+    </div>
     <div class="row-cols-6">
         <div class="card" style="width:400px">
           <img class="card-img-top" src="img_avatar1.png" alt="Card image">

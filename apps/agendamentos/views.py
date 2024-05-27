@@ -1,32 +1,37 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.template import loader
-from .models import Agendamentos
-from .forms import AgendamentoForm
+from django.shortcuts import redirect, render
+from django.views import View
+from .forms import AgendamentoForm, Agendamentos
 
 
-def agendamentos(request):
-    template = loader.get_template('agendamentos.html')
-    return HttpResponse(template.render())
+class AgendamentoView(View):
+    template_name = 'agendamentos.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
 
 
-def lista_agenda(request):
-    agendamento = Agendamentos.objects.all()
-    context = {'agendamento': agendamento}
-    template = loader.get_template('agendamentos.html')
-    return HttpResponse(template.render(context, request))
+class ListaAgendaView(View):
+    template_name = 'agendamentos.html'
+
+    def get(self, request):
+        agendamento = Agendamentos.objects.all()
+        context = {'agendamento': agendamento}
+        return render(request, self.template_name, context)
 
 
-def criar_agendamento(request):
-    template = loader.get_template('agendar.html')
-    form = AgendamentoForm()
-    context = {'form': form}
+class CriarAgendamentoView(View):
+    template_name = 'agendar.html'
 
-    if request.method == 'POST':
+    def get(self, request):
+        form = AgendamentoForm()
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
         form = AgendamentoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('agendamentos.html')
-    else:
-        form = AgendamentoForm()
-    return HttpResponse(template.render(context, request))
+            return redirect('agendamentos/lista')
+        else:
+            return render(request, self.template_name, {'form': form})
