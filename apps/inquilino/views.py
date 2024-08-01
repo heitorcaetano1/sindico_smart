@@ -1,45 +1,73 @@
-from unittest import loader
-from 
-from django.http import HttpResponse
-from django.views.generic import ListView, DetailView, View
-from .models import Inquilinos, Animais, Veiculos, Dependentes
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, DetailView, CreateView
+from .models import Inquilinos, Condominios
+from .forms import InquilinoForm, DependentesForm, VeiculosForm, AnimaisForm
+
+
+@method_decorator(login_required, name='dispatch')
+class InquilinosCreateView(CreateView):
+    model = Inquilinos
+    form_class = InquilinoForm
+    template_name = 'inquilino_form.html'
+    success_url = 'inquilino_list.html'
+
+    def form_valid(self, form):
+
+        self.object = form.save(commit=False)
+        logged_in_user = self.request.user
+        self.object.condominio = Condominios.objects.filter(usuario=logged_in_user).first()
+
+
+        dependentes_form = DependentesForm(self.request.POST)
+        if dependentes_form.is_valid():
+            dependentes = dependentes_form.save(commit=False)
+            dependentes.inquilino = self.object
+            dependentes.save()
+
+        veiculos_form = VeiculosForm(self.request.POST)
+        if veiculos_form.is_valid():
+            veiculos = veiculos_form.save(commit=False)
+            veiculos.save()
+            self.object.veiculos.add(veiculos)
+
+        animais_form = AnimaisForm(self.request.POST)
+        if animais_form.is_valid():
+            animais = animais_form.save(commit=False)
+            animais.save()
+            self.object.animais.add(animais)
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['dependentes_form'] = DependentesForm()
+        context['veiculos_form'] = VeiculosForm()
+        context['animais_form'] = AnimaisForm()
+        return context
+
+
+def excluir_inquilio(request, inquilino_id):
+    inquilino = get_object_or_404(Inquilinos, id=inquilino_id)
+    inquilino.delete()
+    return redirect('inquilino_list')
 
 
 class InquilinoListView(ListView):
     model = Inquilinos
     template_name = 'inquilinos_list.html'
     context_object_name = 'inquilinos'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_term = self.request.GET.get('search')
+        if search_term:
+            queryset = queryset.filter(name_icontains=search_term)
+
+        return queryset
 
 
-class InquilinoDetailView(DetailView):
-    model = Inquilinos
-    template_name = 'inquilino_detail.html'
-    context_object_name = 'inquilino'
-
-
-class DetalhesMoredorView(View):
-    template_name = 'morador.html'
-
-    def get(self, request, nome_inquilino):
-        inquilinos = Inquilinos.objects.filter(nome_icontains=nome_inquilino)
-        detalhes_moradores = []
-
-        for inquilino in inquilinos:
-            dependente = Dependentes.objects.filter(inquilino=inquilino)
-            animais = Animais.objects.filter(inquilino=inquilino)
-            veiculos = Veiculos.objects.filter(inquilino=inquilino)
-            detalhes_moradores.append({
-                'inquilino': inquilino,
-                'dependente': dependente,
-                'animais': animais,
-                'veiculos': veiculos,
-            })
-
-            context = {'detalhes_moradores': detalhes_moradores}
-            return HttpResponse(loader.render_to_string(self.template_name, context, request))
-
-
-class InquilinoCreateView(CreateView):
-    model = Inquilinos
-    form_class = InquilinoForm
-    template_name =
+def detalhe_morador(request, id_inquilino):
+    inquilino = get_object_or_404(Inquilinos, pk=id_inquilino)
+    return render(request, 'morador.html', {'inquilino': inquilino})

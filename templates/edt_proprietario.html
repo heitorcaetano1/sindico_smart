@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Detalhes do Proprietário
+{% endblock %}
+
+{% block content %}
+<div class="container col-md-16 row-md-12">
+    <div>
+        <h1>Editar Proprietário</h1>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <!-- Name -->
+                <div class="col-12">
+                    {{ form.as_p }}
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row mt-3">
+                <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Atualizar</button>
+                </div>
+            </div>
+        </div>
+                {% if messages %}
+                <div class="row mt-3">
+                    <div class="col-12">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+    </form>
+</div>
+{% endblock %}

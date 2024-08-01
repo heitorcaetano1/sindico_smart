@@ -2,13 +2,73 @@
 
 {% block title %}Lista de Moradores{% endblock %}
 {% block content %}
-    
+    <header>
+        {% for funcionario in funcionarios %}
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="sidebarLabel">Menu</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body bg-primary">
+                    <div class="user-profile text-center mb-4">
+                        <img src="{{ funcionario.foto_usuario.url }}" alt="{{ funcionario.nome }}" class="rounded-circle mb-4" style="width: 150px; color: #b6d4fe">
+                        <p class="text-white">{{ funcionario.nome }}</p>
+                    </div>
+                    <div class="col-12 px-5 pb-md-5 align-content-center">
+                        <ul class="nav flex-column mb-4">
+                            <li class="nav-item">
+                                <a href="{% url 'home' %}" class="nav-link text-white">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Agenda</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'inquilino-list' %}">Moradores</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'proprietarios' %}">Proprietários</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'lista_apartamento' %}">Apartamentos</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="">Gerenciar funcionario</a>
+                            </li>
+
+                            <li class="nav-item">
+                                  {% if usuario.funcionario.condominio %}
+                                      <a href="{% url 'editar_condominio' usuario.funcionario.condominio.id %}" class="nav-link text-white">Editar Condominio</a>
+                                  {% else %}
+                                     <a href="{% url 'criar_condominio' %}" class="nav-link text-white">Criar Condominio</a>
+                                  {% endif %}
+                            </li>
+                            <li class="nav-item">
+                                 <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
+                            </li>
+                            <!-- Adicione mais links de acordo com sua necessidade -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </header>
+
     <div>
         <div>
             <h1>Inquilinos</h1>
         </div>
-        <div>
-             <table class="table-info col-12 p-5">
+        <div class="container mt-5 d-flex justify-content-center">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" style="background: green; color: #f0f0f0">Pesquisar</button>
+            </form>
+        </div>
+        <div class="container mt-5 d-flex justify-content-center">
+             <table class="table table-info">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -21,18 +81,21 @@
                 <tbody>
                     {% for inquilino in inquilinos %}
                         <tr>
-                            <td>{{ inquilino.nome }}</td>
+                            <td><a href="{% url 'detalhe_morador' inquilino.id %}">{{ inquilino.nome }}</a></td>
                             <td>{{ inquilino.bloco }}</td>
                             <td><a href="">{{ inquilino.apartamento }}</a></td>
                             <td>{{ apartamento.tel_cont1 }}</td>
                             <td>{{ inquilino.email }}</td>
+                            <td>
+                                <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <div>
-            <button class="btn btn-primary"><a href="{% url  %}">Cadastrar Moradores</a></button>
+        <div class="col-4">
+            <button class="btn btn-primary"><a href="{% url 'inquilino-criar' %}" style="color: #f0f0f0;">Cadastrar</a></button>
         </div>
     </div>
 {% endblock %}

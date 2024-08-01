@@ -1,0 +1,43 @@
+{% extends 'base.html %}
+
+{% block title %}Lista de Funcionarios{% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <h1>Funcionarios</h1>
+        </div>
+        <div class="container mt-5 d-flex justify-content-center">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" style="background: green; color: #f0f0f0">Pesquisar</button>
+            </form>
+        </div>
+        <div class="container mt-5 d-flex justify-content-center">
+             <table class="table table-info">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for funcionarios in object_list %}
+                        <tr>
+                            <td>{{ funcionarios }}</td>
+                            <td>
+                                <form method="post" action="{% url 'excluir_inquilino' inquilino_id %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-primary"><a href="{% url 'inquilino-criar' %}" style="color: #f0f0f0;">Cadastrar</a></button>
+        </div>
+    </div>
+{% endblock %}

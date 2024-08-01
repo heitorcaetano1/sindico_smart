@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Agendamentos
 
-# Register your models here.
+
+class AgendamentosAdmin(admin.ModelAdmin):
+    list_display = ('dia', 'periodo', 'categoria')
+
+
+admin.site.register(Agendamentos, AgendamentosAdmin)

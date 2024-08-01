@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Proprietarios{% endblock %}
+{% block title %}Proprietários{% endblock %}
 
 {% block content %}
-    <h1>Proprietários</h1>
-    <div class="container-fluid">
-        <table>
+<div class="container">
+    <div>
+        <h1>Proprietários</h1>
+    </div>
+    <div class="container-fluid md-5 d-flex justify-content-center">
+        <table class="table table-info">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -16,16 +19,28 @@
                 </tr>
             </thead>
             <tbody>
-                {% for proprietario in proprietarios %}
+                {% for proprietario in proprietario %}
                     <tr>
-                        <td><a href="{% url 'proprietario' proprietario.id %}">{{ proprietario.nome }}</a></td>
+                        <td><a href="{% url 'detalhes_proprietario' proprietario.id %}">{{ proprietario.nome }}</a></td>
                         <td>{{ proprietario.bloco }}</td>
                         <td>{{ proprietario.apartamento }}</td>
                         <td>{{ proprietario.email }}</td>
                         <td>{{ proprietario.tel_cont1 }}</td>
                     </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6"> Não há proprietários registrados.</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    <div class="p-xxl-5 row-md-3">
+        <button class="btn btn-primary">
+            <a href="{% url 'registro_proprietario' %}" style="color: #f0f0f0">
+                Registrar novo proprietário
+            </a>
+        </button>
+    </div>
+</div>
 {% endblock %}

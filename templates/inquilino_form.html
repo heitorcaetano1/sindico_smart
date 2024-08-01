@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Inquilinos{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Cadastrar Inquilinos</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <h2>Dependentes</h2>
+            {% csrf_token %}
+            {{ dependentes_form.as_p }}
+            
+            <h2>Veículos</h2>
+            {% csrf_token %}
+            {{ veiculos_form.as_p }}
+            
+            <h2>Animais</h2>
+            {% csrf_token %}
+            {{ animais_form.as_p }}
+            <button class="btn btn-primary" style="color: white;" type="submit">Salvar</button>
+        </form>
+    </div>
+{% endblock %}

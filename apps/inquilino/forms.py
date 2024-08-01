@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dependentes, Veiculos, Animais
+from .models import Dependentes, Veiculos, Animais, Inquilinos
 
 
 class DependentesForm(forms.ModelForm):
@@ -17,4 +17,10 @@ class VeiculosForm(forms.ModelForm):
 class AnimaisForm(forms.ModelForm):
     class Meta:
         model = Animais
+        fields = '__all__'
+
+
+class InquilinoForm(forms.ModelForm):
+    class Meta:
+        model = Inquilinos
         fields = '__all__'

@@ -2,26 +2,40 @@
 
 {% block title %}Apartamentos{% endblock %}
 
-    {% block content %}
-        <h2>Apartamentos</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Numero</th>
-                    <th>Bloco</th>
-                    <th>Proprietário</th>
-                    <th>Morador</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for apartamento in apartamentos %}
+ {% block content %}
+    <div class="container-fluid">
+        <div>
+            <h2>Apartamento {{ apartamento.numero }}</h2>
+        </div>
+
+        <div class="container mt-5 d-flex justify-content-center">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" style="background: green; color: #f0f0f0">Pesquisar</button>
+            </form>
+        </div>
+
+        <div class="container mt-5 d-flex justify-content-center">
+            <table class="table table-info">
+                <thead>
                     <tr>
-                        <td><a href="">{{ apartamento.numero }}</a></td>
-                        <td>{{ apartamento.bloco }}</td>
-                        <td>{{ apartamento.proprietario }}</td>
-                        <td>{{ apartamento.morador }}</td>
+                        <th>Numero</th>
+                        <th>Bloco</th>
+                        <th>Proprietario</th>
+                        <th>Morador</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endblock %}
+                </thead>
+                <tbody>
+                    {% for apartamento in apartamentos %}
+                        <tr>
+                            <td>{{ apartamento.numero }}</td>
+                            <td>{{ apartamento.bloco }}</td>
+                            <td>{{ apartamento.proprietario }}</td>
+                            <td>{{ apartamento.morador }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

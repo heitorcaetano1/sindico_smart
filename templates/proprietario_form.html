@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="col-md-18">
+        <h1>Registrar Proprietario</h1>
+    </div>
+
+    <form class="form-inline" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary mb-2" type="submit">Registrar</button>
+    </form>
+
+</div>
+{% endblock %}

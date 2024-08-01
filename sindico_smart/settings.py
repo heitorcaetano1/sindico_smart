@@ -45,17 +45,16 @@ INSTALLED_APPS = [
     "apps.inquilino.apps.InquilinoConfig",
     "apps.financeiro.apps.FinanceiroConfig",
     "apps.departamentos.apps.DepartamentosConfig",
-    "apps.agendamentos",
+    "apps.agendamentos.apps.AgendamentosConfig",
     "apps.core.apps.CoreConfig",
     'crispy_forms',
     'django_bootstrap5',
-    'django_icons',
 ]
 
 DJANGO_ICONS = {
     "ICONS": {
         "edit": {"name": "fa-solid fa-pencil"},
-        "apart": {"name": "bi bi-buildings-fill"}
+        "apart": {"name": "bi bi-buildings-fill"},
     },
 }
 
@@ -68,7 +67,7 @@ EMAIL_HOST_USER = 'seuemail@provedor.com'
 EMAIL_HOST_PASSWORD = 'suasenha'
 
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = ['bootstrap5']
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
@@ -87,7 +86,7 @@ ROOT_URLCONF = 'sindico_smart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,6 +98,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'sindico_smart.wsgi.application'
 
@@ -149,7 +149,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_FILES = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
 STATIC_ROOT = BASE_DIR / 'productionfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'

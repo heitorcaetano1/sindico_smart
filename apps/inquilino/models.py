@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from apps.bloco.models import Bloco
+from apps.condominios.models import Condominios
 from apps.proprietario.models import Proprietario
 
 
@@ -19,7 +20,7 @@ class Inquilinos(models.Model):
     email = models.EmailField(help_text='E-mail de contato')
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     apartamento = models.IntegerField()
-
+    condominio = models.ForeignKey(Condominios, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.nome
 

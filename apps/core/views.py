@@ -1,9 +1,16 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from apps.funcionarios.models import Funcionarios
 
 
 @login_required
-def home(request):
-    template = loader.get_template("index.html")
-    return HttpResponse(template.render())
+def index_view(request):
+
+    user = request.user
+    funcionarios = Funcionarios.objects.all()
+    context = {
+        'username': user.username,
+        'funcionarios': funcionarios,
+    }
+
+    return render(request, 'index.html', context)

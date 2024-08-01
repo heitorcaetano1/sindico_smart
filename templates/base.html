@@ -1,8 +1,8 @@
 {% load static %}
 {% load django_bootstrap5 %}
-{% load icons %}
 <!DOCTYPE html>
 <html lang="pt-Br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,88 +14,172 @@
 
 
     <style>
-        .logo-area {
-            background-color: #007bff; /* Azul */
+        .header-style {
+            background-color: #007bff;
+            padding-top: 1rem;
         }
-        
-        .logo-area img {
-            max-width: 400px;
-            padding: 100%;/* Ajuste o tamanho máximo da logo conforme necessário */
-            margin-top: 0; /* Ajuste o espaçamento conforme necessário */
+        .content-container {
+            margin: 0;
+            padding: 0;
+        }
+        .check-condominios {
+            margin: 0;
+            padding: 0;
+        }
+        .logo-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .rounded-logo {
+            max-width: 200px;
+            border-radius: 50%;
+        }
+        .nav-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .nav-style {
+            background-color: #007bff;
+            color: #fff;
+            width: 50%;
+            margin: 0 auto;
+        }
+        .user-profile {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .rounded-circle-profile {
+            border-radius: 50%;
+            width: 150px;
+            color: #b6d4fe;
+        }
+        .text-style {
+            color: #fff;
+        }
+        .menu-link-container {
+            width: 100%;
+            padding-left: 2rem;
+            padding-bottom: 5rem;
+            align-content: center;
+        }
+        .content-section {
+            width: 100%;
+        }
+        .content-block {
+            column-gap: auto;
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+        .footer-style {
+            background: linear-gradient(to bottom, #0275d8, #000000);
+            color: #ffffff;
+            position: fixed;
+            bottom: 0;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
     <header class="bg-primary pt-5">
         <div class="content bg-primary .col-lg-3" style="margin: 0; padding: 0;">
-            <div class="text-center mt-3">
-                <img src="{{ condominio.logo }}" alt="logo-condominio" class="rounded-circle"
-                     style="max-width: 200px;">
+             <div class="check-condominios">
+                <div class="logo-container">
+                    <img src="{{ condominio.logo.url }}" alt="logo-condominio" class="rounded-logo">
+                </div>
             </div>
             <div class="text-center mt-3">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-5m">
                   <div class="container-fluid">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar"
+                            aria-expanded="false" aria-label="Toggle navigation">
                       <span class="fas fa-angle-right"></span>
                     </button>
-                    
                   </div>
+
+                    {% if usuario.funcionario.condominio %}
+                        <a href="{% url 'editar_condominio' usuario.funcionario.condominio.id %}">Editar Condominio</a>
+                    {% else %}
+                        <a href="{% url 'criar_condominio' %}">Criar Condominio</a>
+                    {% endif %}
                 </nav>
+                <nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
+                    <div class="navbar-nav mx-auto">
+                        <a class="nav-item nav-link text-white" href="{% url 'home' %}">Home</a>
+                        <a class="nav-item nav-link text-white" href="{% url 'agendamentos/lista' %}">Agenda</a>
+                        <a class="nav-item nav-link text-white" href="{% url 'proprietarios' %}">Proprietarios</a>
+                        <a class="nav-item nav-link text-white" href="{% url 'inquilino-list' %}">Moradores</a>
+                    </div>
+                </nav>
+
             </div>
         </div>
     </header>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="sidebarLabel">Menu</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body bg-primary">
-            <div class="user-profile text-center mb-4">
-                <img src="{{ user.funcionarios.imagem_funcionario.url }}" alt="Foto do Usuário" class="rounded-circle mb-4" style="width: 150px; color: #b6d4fe">
-                <p class="text-white">{{ user.funcionario.nome }}</p>
+    <!--começo area de funcionario-->
+    {% for funcionario in funcionarios %}
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sidebarLabel">Menu</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="col-12 px-5 pb-md-5 align-content-center">
-                <ul class="nav flex-column mb-4">
-                    <li class="nav-item">
-                        <a href="{% url 'home' %}" class="nav-link text-white">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Agenda</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'inquilino-list' %}">Moradores</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Proprietários</a>
-                    </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Apartamentos</a>
-                    </li>
-                
-                    <li class="nav-item">
-                          {% if usuario.funcionario.condominio %}
-                              <a href="{% url 'editar_condominio' usuario.funcionario.condominio.id %}" class="nav-link text-white">Editar Condominio</a>
-                          {% else %}
-                             <a href="{% url 'criar_condominio' %}" class="nav-link text-white">Criar Condominio</a>
-                          {% endif %}
-                    </li>
-                    <li class="nav-item">
-                         <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
-                    </li>
-                    <!-- Adicione mais links de acordo com sua necessidade -->
-                </ul>
+            <div class="offcanvas-body bg-primary">
+                <div class="user-profile text-center mb-4">
+                    <img src="{{ funcionario.foto_usuario.url }}" alt="{{ funcionario.nome }}" class="rounded-circle mb-4" style="width: 150px; color: #b6d4fe">
+                    <p class="text-white">{{ funcionario.nome }}</p>
+                </div>
+                <div class="col-12 px-5 pb-md-5 align-content-center">
+                    <ul class="nav flex-column mb-4">
+                        <li class="nav-item">
+                            <a href="{% url 'home' %}" class="nav-link text-white">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'agendamentos/lista' %}">Agenda</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'inquilino-list' %}">Moradores</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'proprietarios' %}">Proprietários</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'lista_apartamento' %}">Apartamentos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="">Gerenciar funcionario</a>
+                        </li>
+
+                        <li class="nav-item">
+                              {% if usuario.funcionario.condominio %}
+                                  <a href="{% url 'editar_condominio' usuario.funcionario.condominio.id %}" class="nav-link text-white">Editar Condominio</a>
+                              {% else %}
+                                 <a href="{% url 'criar_condominio' %}" class="nav-link text-white">Criar Condominio</a>
+                              {% endif %}
+                        </li>
+                        <li class="nav-item">
+                             <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
+                        </li>
+                        <!-- Adicione mais links de acordo com sua necessidade -->
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    {% endfor %}
+
+    <!--Final de area de Usuario-->
     <section class="container-fluid">
         <div class="row">
             <div class="row-cols-auto mt-5 d-flex justify-content-center">
-                
+
                 {% block content %}
-                    
+
                 {% endblock %}
             </div>
         </div>
@@ -108,4 +192,5 @@
     </footer>
     {% bootstrap_javascript %}
 </body>
+
 </html>

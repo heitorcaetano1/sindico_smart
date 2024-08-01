@@ -1,46 +1,45 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Detalhes do Morador{% endblock %}
 
 {% block content %}
-    {% for detalhe in detalhes_morador %}
-        <div>
-            <h2>{{ detalhe.inquilino.nome }}</h2>
-            {% for inquilino in detalhe.inquilinos %}
-                <p>Bloco: {{ inquilino.bloco }} |  Apartamento: {{ inquilino.apartamento }}</p>
-                <p>Numero de identidade: {{ inquilino.identidade }}</p>
-                <p>Data de Nascimento: {{ inquilino.nascimento }}</p>
-                <p>Nacionalidade: {{ inquilino.nacionalidade }}</p>
-                <p>Profissão: {{ inquilino.proficao }}</p>
-                <p>Numero de Contato: ({{ inquilino.ddd }}) {{ inquilino.tel_cont1 }}</p>
-                <p>Numero para Recado: ({{ inquilino.ddd }}) {{ inquilino.contato2 }}</p>
-                <p>E-mail: {{ inquilino.email }}</p>
-            {% endfor %}
-            <h3>Dependentes</h3>
-            {% for dependente in detalhe.dependente %}
-                <p>Nome: {{ dependente.nome }}</p>
-                <p>Parentesco: {{ dependente.parentesco }}</p>
-                <p>Identidade: {{ dependente.identidade }}</p>
-                <p>Data de Nascimento: {{ dependente.nascimento }}</p>
-                <p>Contato: ({{ dependente.ddd }}) {{ dependente.tel_cont1 }}</p>
-                <p>Contato para Recado: ({{ dependente.ddd }} {{ dependente.contato2 }})</p>
-                <p>E-mail: {{ dependente.email }}</p>
-            {% endfor %}
+    <div class="container">
+        <h2>{{ inquilino.nome }}</h2>
+        <p>Bloco: {{ inquilino.bloco }} |  Apartamento: {{ inquilino.apartamento }}</p>
+        <p>Numero de identidade: {{ inquilino.identidade }}</p>
+        <p>Data de Nascimento: {{ inquilino.nascimento }}</p>
+        <p>Nacionalidade: {{ inquilino.nacionalidade }}</p>
+        <p>Profissão: {{ inquilino.profissao }}</p>
+        <p>Numero de Contato: ({{ inquilino.ddd }}) {{ inquilino.tel_cont1 }}</p>
+        <p>Numero para Recado: ({{ inquilino.ddd }}) {{ inquilino.contato2 }}</p>
+        <p>E-mail: {{ inquilino.email }}</p>
 
-            <h3>Veiculos</h3>
-            {% for veiculo in detalhe.veiculos %}
-                <p>Placa: {{ veiculo.placa }}</p>
-                <p>Marca: {{ veiculo.marca }}</p>
-                <p>Modelo: {{ veiculo.modelo }}</p>
-                <p>Cor: {{ veiculo.cor }}</p>
-            {% endfor %}
-            <h3>Animais</h3>
-            {% for animal in detalhe.animais %}
-                <p>Quantidade: {{ animal.quantidade }}</p>
-                <p>Raça: {{ animal.especie }}</p>
-                <p>Vacinado: {{ animal.vacinacao  }}</p>
-            {% endfor %}
-        </div>
-        <p>Voltar aos <a href="moradores/">Moradores</a></p>
-    {% endfor %}
+        <h3>Dependentes</h3>
+        {% for dependente in inquilino.dependentes.all %}
+            <p>Nome: {{ dependente.nome }}</p>
+            <p>Parentesco: {{ dependente.parentesco }}</p>
+            <p>Identidade: {{ dependente.identidade }}</p>
+            <p>Data de Nascimento: {{ dependente.nascimento }}</p>
+            <p>Contato: ({{ dependente.ddd }}) {{ dependente.tel_cont1 }}</p>
+            <p>Contato para Recado: ({{ dependente.ddd }}) {{ dependente.contato2 }}</p>
+            <p>E-mail: {{ dependente.email }}</p>
+        {% endfor %}
+
+        <h3>Veiculos</h3>
+        {% for veiculo in inquilino.veiculos.all %}
+            <p>Placa: {{ veiculo.placa }}</p>
+            <p>Marca: {{ veiculo.marca }}</p>
+            <p>Modelo: {{ veiculo.modelo }}</p>
+            <p>Cor: {{ veiculo.cor }}</p>
+        {% endfor %}
+
+        <h3>Animais</h3>
+        {% for animal in inquilino.animais.all %}
+            <p>Quantidade: {{ animal.quantidade }}</p>
+            <p>Raça: {{ animal.especie }}</p>
+            <p>Vacinado: {{ animal.vacinacao }}</p>
+        {% endfor %}
+
+        <p><a href="" class="btn btn-primary"><i class="fas fa-edit"></i></a></p>
+    </div>
 {% endblock %}

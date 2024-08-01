@@ -1,8 +1,11 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
+from apps.condominios.models import Condominios
+
 
 class Proprietario(models.Model):
+    condominio = models.ForeignKey(Condominios, on_delete=models.CASCADE, null=True)
     nome = models.CharField(max_length=100, help_text='Nome Proprietário')
     identidade = models.CharField(max_length=100, help_text='Numero da Indentidade')
     orgao = models.CharField(max_length=100, help_text='Orgão emissor')

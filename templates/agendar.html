@@ -12,13 +12,12 @@
                 <form method="post" class="offset-md-3 row-cols-md-3">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <div class="offset-md-8 row-cols-12">
+                        <button type="submit" class="btn btn-primary">Agendar</button>
+                        <button class="btn btn-danger"><a href="{% url 'agendamentos/lista' %}"  style="color: #f0f0f0">Voltar</a></button>
+                    </div>
                 </form>
             </div>
-             <div class="offset-md-8 row-cols-12">
-                <button type="submit" class="btn btn-primary">Agendar</button>
-            
-                <button class="btn btn-danger"><a href="{% url 'agendamentos/lista' %}"  style="color: #f0f0f0">Voltar</a></button>
-             </div>
         </div>
     </div>
 {% endblock %}

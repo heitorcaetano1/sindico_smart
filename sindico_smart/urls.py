@@ -1,5 +1,8 @@
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
+from sindico_smart import settings
 
 urlpatterns = [
     path('agendamentos/', include('apps.agendamentos.urls')),
@@ -12,3 +15,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('condominio/', include('apps.condominios.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

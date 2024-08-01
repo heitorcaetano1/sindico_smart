@@ -10,5 +10,5 @@ def detalhe_apartamento(request, id):
 
 def lista_apartamento(request):
     apartamentos = Apartamentos.objects.all()
-    return render(request, 'teplates/apartamentos.html',
-                  {'apartartamentos': apartamentos})
+    return render(request, 'apartamentos.html',  # fixed template name here
+                  {'apartamentos': apartamentos})

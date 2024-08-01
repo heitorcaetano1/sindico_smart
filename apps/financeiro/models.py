@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+
+from apps.condominios.models import Condominios
 from apps.inquilino.models import Inquilinos
 import barcode
 from barcode.writer import ImageWriter
@@ -16,8 +18,7 @@ class Conta(models.Model):
                             choices=(('pagar', 'Pagar'), ('receber', 'Perceber')))
     status = models.CharField(max_length=10,
                               choices=(('pendente',  'Pendente'), ('pago', 'Pago')))
-
-
+    condominio = models.ForeignKey(Condominios, on_delete=models.CASCADE, null=True)
 class FluxoCaixa(models.Model):
     data_movimento = models.DateField()
     tipo = models.CharField(max_length=10,
@@ -30,14 +31,15 @@ class Auditoria(models.Model):
     acao = models.CharField(max_length=64)
     descricao = models.TextField()
     data_hora = models.DateTimeField(auto_now_add=True)
-
-
+    condominio = models.ForeignKey(Condominios, on_delete=models.CASCADE, null=True)
 @receiver(post_save, sender=Conta)
-def auditoria_save(sender, instance, **Kwargs):
+def auditoria_save(sender, instance, **kwargs):
     Auditoria.objects.create(acao='delete', descricao=f'Conta{instance.descricao} salva ou atualizada.')
 
-def auditoria_delete(sender, instance, **Kwargs):
+
+def auditoria_delete(sender, instance, **kwargs):
     Auditoria.objects.create(acao='delete', descricao=f'Conta{instance.descricao} exxxcluída.')
+
 
 class Boleto(models.Model):
     inquilino = models.ForeignKey(Inquilinos, on_delete=models.PROTECT, related_name='boletos')
